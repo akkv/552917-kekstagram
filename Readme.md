@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Влад Акулов](https://up.htmlacademy.ru/javascript/14/user/552917).
-* Наставник: `Неизвестно`.
+* Наставник: `Кирилл Пензин`.
 
 ---
 
