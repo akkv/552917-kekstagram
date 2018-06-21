@@ -20,14 +20,14 @@ var smallPhotosContainer = document.querySelector('.pictures');
 
 var NUMBER_OF_PHOTOS = 25;
 var bigPhoto = document.querySelector('.big-picture');
+var commentsContainer = document.querySelector('.social__comments');
+var commentTempate = document.querySelector('#comment').content.querySelector('li');
 
 var bigPhotoProps = {
   photo: bigPhoto.querySelector('.big-picture__img img'),
   likes: bigPhoto.querySelector('.likes-count'),
-  comments: bigPhoto.querySelector('.social__text'),
   commentsCount: bigPhoto.querySelector('.comments-count'),
   descriptions: bigPhoto.querySelector('.social__caption'),
-  avatar: bigPhoto.querySelector('.social__comment .social__picture')
 };
 
 var getRandomInt = function (min, max) {
@@ -53,14 +53,15 @@ var generateUrls = function () {
 };
 
 var generateComment = function () {
-  var comment = exampleCommentsParts[getRandomInt(0, exampleCommentsParts.length - 1)];
+  var comment = [];
+  comment.push(exampleCommentsParts[getRandomInt(0, exampleCommentsParts.length - 1)]);
   var randomForOneOrTwoComments = Math.round(Math.random());
   if (!randomForOneOrTwoComments) {
     var tmp = exampleCommentsParts[getRandomInt(0, exampleCommentsParts.length - 1)];
-    while (comment === tmp) {
+    while (comment[0] === tmp) {
       tmp = exampleCommentsParts[getRandomInt(0, exampleCommentsParts.length - 1)];
     }
-    comment += ' ' + tmp;
+    comment.push(' ' + tmp);
   }
   return comment;
 };
@@ -70,12 +71,13 @@ var generatePhotosData = function () {
   var photos = [];
 
   for (var i = 0; i < NUMBER_OF_PHOTOS; i++) {
+    var tmp = generateComment();
     photos.push({
       url: urls[i],
       likes: getRandomInt(15, 200),
-      comments: generateComment(),
-      commentsCount: 1,
-      description: exampleDescriptionParts[getRandomInt(0, exampleDescriptionParts.length - 1)]
+      description: exampleDescriptionParts[getRandomInt(0, exampleDescriptionParts.length - 1)],
+      comments: tmp,
+      commentsCount: tmp.length
     });
   }
   return photos;
@@ -93,20 +95,30 @@ var renderSmallPhotosElements = function (photosData) {
   return fragment;
 };
 
-var photosData = generatePhotosData();
-smallPhotosContainer.appendChild(renderSmallPhotosElements(photosData));
+var renderComments = function (photoData) {
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < photoData.comments.length; i++){
+    var element = commentTempate.cloneNode(true);
+    element.querySelector('.social__text').textContent = photoData.comments[i];
+    element.querySelector('.social__comment .social__picture').src = 'img/avatar-' + getRandomInt(1, 6) + '.svg';
+    fragment.appendChild(element);
+  }
+  return fragment;
+};
 
 var generateBigPhoto = function (photoData) {
   bigPhotoProps.photo.src = photoData.url;
   bigPhotoProps.likes.textContent = photoData.likes;
-  bigPhotoProps.comments.textContent = photoData.comments;
-  bigPhotoProps.commentsCount.textContent = '' + photoData.commentsCount;
   bigPhotoProps.descriptions.textContent = photoData.description;
-  bigPhotoProps.avatar.src = 'img/avatar-' + getRandomInt(1, 6) + '.svg';
+  bigPhotoProps.commentsCount.textContent = '' + photoData.comments.length;
+  commentsContainer.appendChild(renderComments(photoData));
 
   bigPhoto.querySelector('.social__comment-count').classList.add('visually-hidden');
   bigPhoto.querySelector('.social__loadmore').classList.add('visually-hidden');
 };
 
+var photosData = generatePhotosData();
+
+smallPhotosContainer.appendChild(renderSmallPhotosElements(photosData));
 generateBigPhoto(photosData[0]);
 bigPhoto.classList.remove('hidden');
