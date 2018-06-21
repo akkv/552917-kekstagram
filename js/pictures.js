@@ -97,7 +97,7 @@ var renderSmallPhotosElements = function (photosData) {
 
 var renderComments = function (photoData) {
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < photoData.comments.length; i++){
+  for (var i = 0; i < photoData.comments.length; i++) {
     var element = commentTempate.cloneNode(true);
     element.querySelector('.social__text').textContent = photoData.comments[i];
     element.querySelector('.social__comment .social__picture').src = 'img/avatar-' + getRandomInt(1, 6) + '.svg';
