@@ -263,7 +263,7 @@ resizePlus.addEventListener('click', function () {
 
 // Валидация
 var hashtagsInput = upload.querySelector('.text__hashtags');
-hashtagsInput.addEventListener('change', function (evt) {
+hashtagsInput.addEventListener('change', function () {
   var hashtags = hashtagsInput.value.split(' ');
   hashtags.sort();
   for (var i = 0; i < hashtags.length; i++) {
