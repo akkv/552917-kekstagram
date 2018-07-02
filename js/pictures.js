@@ -221,14 +221,19 @@ var effectLineWidth = document.querySelector('.scale__line');
 var effectPin = document.querySelector('.scale__pin');
 
 var generateEffectStyle = function (effectName, value) {
-  var styles = {
-    'effects__preview--chrome': 'grayscale(' + value + ')',
-    'effects__preview--sepia': 'sepia(' + value + ')',
-    'effects__preview--marvin': 'invert(' + (value * 100) + '%)',
-    'effects__preview--phobos': 'blur(' + (value * 3) + 'px)',
-    'effects__preview--heat': 'brightness(' + (value * 3) + ')'
-  };
-  return styles[effectName];
+  switch (effectName) {
+    case 'effects__preview--chrome':
+      return 'grayscale(' + value + ')';
+    case 'effects__preview--sepia':
+      return 'sepia(' + value + ')';
+    case 'effects__preview--marvin':
+      return 'invert(' + (value * 100) + '%)';
+    case 'effects__preview--phobos':
+      return 'blur(' + (value * 3) + 'px)';
+    case 'effects__preview--heat':
+      return 'brightness(' + (1 + (value * 2)) + ')';
+  }
+
 };
 
 effectPin.addEventListener('mouseup', function () {
@@ -242,9 +247,8 @@ var resizeMinus = upload.querySelector('.resize__control--minus');
 var resizePlus = upload.querySelector('.resize__control--plus');
 var resizeValue = upload.querySelector('.resize__control--value');
 
-var resizePercent = 100;
-uploadImage.style.transform = 'scale(' + resizePercent / 100 + ')';
-resizeValue.value = resizePercent + '%';
+var resizePercent = resizeValue.value;
+resizePercent = resizePercent.replace('%', '');
 
 resizeMinus.addEventListener('click', function () {
   if (resizePercent > 25) {
@@ -260,3 +264,25 @@ resizePlus.addEventListener('click', function () {
     uploadImage.style.transform = 'scale(' + (resizePercent / 100) + ')';
   }
 });
+
+// Валидация
+var hashtagsInput = upload.querySelector('.text__hashtags');
+hashtagsInput.addEventListener('change', function () {
+  var hashtags = hashtagsInput.value.split(' ');
+  hashtags.sort();
+  for (var i = 0; i < hashtags.length; i++) {
+    hashtags[i] = hashtags[i].toLowerCase();
+    if (hashtags[i].charAt(0) !== '#') {
+      hashtagsInput.setCustomValidity('Хэштег должен начинаться с #');
+    } else if (hashtags[i].length < 2) {
+      hashtagsInput.setCustomValidity('Хэштег не может состоять только из #');
+    } else if (hashtags[i].length > 20) {
+      hashtagsInput.setCustomValidity('Хэштег не может быть длинее 20 символов');
+    } else if (hashtags.indexOf(hashtags[i]) !== i) {
+      hashtagsInput.setCustomValidity('Не может быть двух одинаковых хештегов');
+    } else {
+      hashtagsInput.setCustomValidity('');
+    }
+  }
+});
+
