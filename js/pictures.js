@@ -221,25 +221,25 @@ var effectLineWidth = document.querySelector('.scale__line');
 var effectPin = document.querySelector('.scale__pin');
 
 var generateEffectStyle = function (effectName, value) {
-  var tmp;
+  var style;
   switch (effectName) {
     case 'effects__preview--chrome':
-      tmp = 'grayscale(' + value + ')';
+      style = 'grayscale(' + value + ')';
       break;
     case 'effects__preview--sepia':
-      tmp = 'sepia(' + value + ')';
+      style = 'sepia(' + value + ')';
       break;
     case 'effects__preview--marvin':
-      tmp = 'invert(' + (value * 100) + '%)';
+      style = 'invert(' + (value * 100) + '%)';
       break;
     case 'effects__preview--phobos':
-      tmp = 'blur(' + (value * 3) + 'px)';
+      style = 'blur(' + (value * 3) + 'px)';
       break;
     case 'effects__preview--heat':
-      tmp = 'brightness(' + (1 + (value * 2)) + ')';
+      style = 'brightness(' + (1 + (value * 2)) + ')';
       break;
   }
-  return tmp;
+  return style;
 };
 
 effectPin.addEventListener('mouseup', function () {
