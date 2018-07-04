@@ -221,19 +221,25 @@ var effectLineWidth = document.querySelector('.scale__line');
 var effectPin = document.querySelector('.scale__pin');
 
 var generateEffectStyle = function (effectName, value) {
+  var tmp;
   switch (effectName) {
     case 'effects__preview--chrome':
-      return 'grayscale(' + value + ')';
+      tmp = 'grayscale(' + value + ')';
+      break;
     case 'effects__preview--sepia':
-      return 'sepia(' + value + ')';
+      tmp = 'sepia(' + value + ')';
+      break;
     case 'effects__preview--marvin':
-      return 'invert(' + (value * 100) + '%)';
+      tmp = 'invert(' + (value * 100) + '%)';
+      break;
     case 'effects__preview--phobos':
-      return 'blur(' + (value * 3) + 'px)';
+      tmp = 'blur(' + (value * 3) + 'px)';
+      break;
     case 'effects__preview--heat':
-      return 'brightness(' + (1 + (value * 2)) + ')';
+      tmp = 'brightness(' + (1 + (value * 2)) + ')';
+      break;
   }
-
+  return tmp;
 };
 
 effectPin.addEventListener('mouseup', function () {
@@ -262,27 +268,6 @@ resizePlus.addEventListener('click', function () {
     resizePercent += 25;
     resizeValue.value = resizePercent + '%';
     uploadImage.style.transform = 'scale(' + (resizePercent / 100) + ')';
-  }
-});
-
-// Валидация
-var hashtagsInput = upload.querySelector('.text__hashtags');
-hashtagsInput.addEventListener('change', function () {
-  var hashtags = hashtagsInput.value.split(' ');
-  hashtags.sort();
-  for (var i = 0; i < hashtags.length; i++) {
-    hashtags[i] = hashtags[i].toLowerCase();
-    if (hashtags[i].charAt(0) !== '#') {
-      hashtagsInput.setCustomValidity('Хэштег должен начинаться с #');
-    } else if (hashtags[i].length < 2) {
-      hashtagsInput.setCustomValidity('Хэштег не может состоять только из #');
-    } else if (hashtags[i].length > 20) {
-      hashtagsInput.setCustomValidity('Хэштег не может быть длинее 20 символов');
-    } else if (hashtags.indexOf(hashtags[i]) !== i) {
-      hashtagsInput.setCustomValidity('Не может быть двух одинаковых хештегов');
-    } else {
-      hashtagsInput.setCustomValidity('');
-    }
   }
 });
 
