@@ -189,6 +189,7 @@ closeUploadButton.addEventListener('click', function () {
 });
 
 // Эффекты
+var DEFAULT_EFFECT_VALUE = 90;
 
 var uploadImage = document.querySelector('.img-upload__preview');
 var effects = document.querySelectorAll('.effects__radio');
@@ -199,8 +200,8 @@ var changeEffect = function (element, effect) {
     uploadImage.classList.add('effects__preview--' + effect);
 
     uploadImage.style.filter = '';
-    window.pinHandler.style.left = '20%';
-    window.effectValueDiv.style.width = '20%';
+    window.pinHandler.style.left = DEFAULT_EFFECT_VALUE + 'px';
+    window.effectValueDiv.style.width = DEFAULT_EFFECT_VALUE + 'px';
 
     upload.querySelector('.img-upload__scale').classList.add('hidden');
     if (effect !== 'none') {
@@ -217,7 +218,7 @@ var changeEffect = function (element, effect) {
 (function () {
   var effectValueInput = document.querySelector('.scale__value');
   window.effectValueDiv = document.querySelector('.scale__level');
-  window.effectLineWidth = document.querySelector('.scale__line');
+  window.effectLine = document.querySelector('.scale__line');
   window.pinHandler = document.querySelector('.scale__pin');
 
   var generateEffectStyle = function (effectName, value) {
@@ -242,7 +243,7 @@ var changeEffect = function (element, effect) {
     return style;
   };
   window.effectChangeOnMouseMove = function () {
-    effectValueInput.value = window.effectValueDiv.offsetWidth / window.effectLineWidth.offsetWidth;
+    effectValueInput.value = window.effectValueDiv.offsetWidth / window.effectLine.offsetWidth;
     uploadImage.style.filter = generateEffectStyle(uploadImage.classList[1], (effectValueInput.value));
   };
 })();
@@ -294,11 +295,9 @@ var changeEffect = function (element, effect) {
     }
   });
 })();
-
 // Перемещение
 (function () {
   window.pinHandler = document.querySelector('.scale__pin');
-  var widthValue = 90;
   window.pinHandler.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
@@ -307,16 +306,23 @@ var changeEffect = function (element, effect) {
     var mouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
-      if ((widthValue > 0) && (widthValue < window.effectLineWidth.offsetWidth)) {
-        var shift = startCoords - moveEvt.clientX;
-        startCoords = moveEvt.clientX;
+      var shiftX = startCoords - moveEvt.clientX;
+      startCoords = moveEvt.clientX;
+
+      var newLeft = window.pinHandler.offsetLeft - shiftX;
+      if (newLeft < 0) {
+        newLeft = 0;
       }
-      if ((widthValue > shift) && (widthValue - shift < window.effectLineWidth.offsetWidth)) {
-        widthValue = window.pinHandler.offsetLeft - shift;
+      if (newLeft > window.effectLine.offsetWidth) {
+        newLeft = window.effectLine.offsetWidth;
       }
 
-      window.pinHandler.style.left = widthValue + 'px';
-      window.effectValueDiv.style.width = widthValue + 'px';
+      var minX = window.effectLine.getBoundingClientRect().left;
+      var maxX = window.effectLine.getBoundingClientRect().right;
+      if (moveEvt.clientX > minX && moveEvt.clientX < maxX) {
+        window.pinHandler.style.left = newLeft + 'px';
+        window.effectValueDiv.style.width = newLeft + 'px';
+      }
       window.effectChangeOnMouseMove();
     };
 
