@@ -280,9 +280,9 @@ var changeEffect = function (element, effect) {
     hashtags.sort();
     for (var i = 0; i < hashtags.length; i++) {
       hashtags[i] = hashtags[i].toLowerCase();
-      if (hashtags[i].charAt(0) !== '#') {
+      if (hashtags[i].length > 0 && hashtags[i].charAt(0) !== '#') {
         hashtagsInput.setCustomValidity('Хэштег должен начинаться с #');
-      } else if (hashtags[i].length < 2) {
+      } else if (hashtags[i].length === 1) {
         hashtagsInput.setCustomValidity('Хэштег не может состоять только из #');
       } else if (hashtags[i].length > 20) {
         hashtagsInput.setCustomValidity('Хэштег не может быть длинее 20 символов');
