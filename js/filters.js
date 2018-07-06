@@ -4,11 +4,11 @@
   var filterDiscussed = document.querySelector('#filter-discussed');
   var filterPopular = document.querySelector('#filter-popular');
 
-  var clearPhotos = function() {
+  var clearPhotos = function () {
     var photos = window.smallPhotosContainer.querySelectorAll('a');
     photos.forEach(function (element) {
       element.remove();
-    })
+    });
   };
   var filters = {
     onNewChange: function () {},
@@ -38,7 +38,7 @@
     clearPhotos();
     window.smallPhotosContainer.appendChild(window.renderSmallPhotosElements(array));
     window.addClickListeners(array);
-  })
+  });
 
   filters.onPopularChange = window.debounce(function () {
     filterNew.classList.remove('img-filters__button--active');
