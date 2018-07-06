@@ -301,25 +301,22 @@ var changeEffect = function (element, effect) {
   window.pinHandler.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
-    var startCoords = evt.clientX;
-
     var mouseMove = function (moveEvt) {
+
       moveEvt.preventDefault();
-
-      var shiftX = startCoords - moveEvt.clientX;
-      startCoords = moveEvt.clientX;
-
-      var newLeft = window.pinHandler.offsetLeft - shiftX;
-      if (newLeft < 0) {
-        newLeft = 0;
-      }
-      if (newLeft > window.effectLine.offsetWidth) {
-        newLeft = window.effectLine.offsetWidth;
-      }
-
+      var newLeft;
       var minX = window.effectLine.getBoundingClientRect().left;
       var maxX = window.effectLine.getBoundingClientRect().right;
-      if (moveEvt.clientX > minX && moveEvt.clientX < maxX) {
+
+      if (moveEvt.clientX >= minX && moveEvt.clientX <= maxX) {
+        newLeft = moveEvt.clientX - window.effectLine.getBoundingClientRect().left;
+        if (newLeft < 0) {
+          newLeft = 0;
+        }
+        if (newLeft > window.effectLine.offsetWidth) {
+          newLeft = window.effectLine.offsetWidth;
+        }
+
         window.pinHandler.style.left = newLeft + 'px';
         window.effectValueDiv.style.width = newLeft + 'px';
       }
