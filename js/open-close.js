@@ -11,11 +11,11 @@
       document.addEventListener('keydown', onBigPhotoEscPress);
     });
   };
-  window.addClickListeners = function () {
-    var photosElements = window.smallPhotosContainer.querySelectorAll('a');
-    for (var i = 0; i < window.NUMBER_OF_PHOTOS; i++) {
-      var element = photosElements[i];
-      openBigPhoto(element, window.photosData[i]);
+  window.addClickListeners = function (array) {
+    window.photosElements = window.smallPhotosContainer.querySelectorAll('a');
+    for (var i = 0; i < window.photosElements.length; i++) {
+      var element = window.photosElements[i];
+      openBigPhoto(element, array[i]);
     }
   };
 

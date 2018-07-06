@@ -22,7 +22,7 @@
     return Math.round(Math.random() * (max - min)) + min;
   };
 
-  var shuffleArray = function (array) {
+  window.shuffleArray = function (array) {
     for (var i = array.length - 1; i > 1; i--) {
       var r = Math.round(Math.random() * i);
       var t = array[i];
@@ -36,7 +36,7 @@
     for (var i = 0; i < window.NUMBER_OF_PHOTOS; i++) {
       urls.push('photos/' + (i + 1) + '.jpg');
     }
-    shuffleArray(urls);
+    window.shuffleArray(urls);
     return urls;
   };
 
