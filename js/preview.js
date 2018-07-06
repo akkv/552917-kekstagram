@@ -2,7 +2,7 @@
 (function () {
   window.window.bigPhoto = document.querySelector('.big-picture');
   window.commentsContainer = document.querySelector('.social__comments');
-  var commentTempate = document.querySelector('#comment').content.querySelector('li');
+  var commentTemplate = document.querySelector('#comment').content.querySelector('li');
 
   var bigPhotoProps = {
     photo: window.bigPhoto.querySelector('.big-picture__img img'),
@@ -14,7 +14,7 @@
   var renderComments = function (photoData) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < photoData.comments.length; i++) {
-      var element = commentTempate.cloneNode(true);
+      var element = commentTemplate.cloneNode(true);
       element.querySelector('.social__text').textContent = photoData.comments[i];
       element.querySelector('.social__comment .social__picture').src = 'img/avatar-' + window.getRandomInt(1, 6) + '.svg';
       fragment.appendChild(element);

@@ -1,7 +1,6 @@
 'use strict';
 (function () {
   var ESC_KEYCODE = 27;
-  var photosElements = window.smallPhotosContainer.querySelectorAll('a');
   var closeBigPhotoButton = document.querySelector('.big-picture__cancel');
 
   var openBigPhoto = function (element, data) {
@@ -12,13 +11,13 @@
       document.addEventListener('keydown', onBigPhotoEscPress);
     });
   };
-  var addClickListeners = function () {
+  window.addClickListeners = function () {
+    var photosElements = window.smallPhotosContainer.querySelectorAll('a');
     for (var i = 0; i < window.NUMBER_OF_PHOTOS; i++) {
       var element = photosElements[i];
       openBigPhoto(element, window.photosData[i]);
     }
   };
-  addClickListeners();
 
   var closeBigPhoto = function () {
     window.bigPhoto.classList.add('hidden');
@@ -39,13 +38,14 @@
   };
 
   var closeUploadButton = document.querySelector('.img-upload__cancel');
-  var uploadInput = document.querySelector('.img-upload__input');
+  window.uploadInput = document.querySelector('.img-upload__input');
   window.upload = document.querySelector('.img-upload__overlay');
+  window.commentInput = document.querySelector('.text__description');
 
   var onUploadEscPress = function (evt) {
     if (evt.keyCode === ESC_KEYCODE) {
       if (!(document.activeElement.classList.contains('text__hashtags') || document.activeElement.classList.contains('text__description'))) {
-        closeUploadPopup();
+        window.closeUploadPopup();
       }
     }
   };
@@ -53,17 +53,17 @@
     window.upload.classList.remove('hidden');
     document.addEventListener('keydown', onUploadEscPress);
   };
-  var closeUploadPopup = function () {
+  window.closeUploadPopup = function () {
     window.upload.classList.add('hidden');
     document.removeEventListener('keydown', onUploadEscPress);
-    uploadInput.value = '';
+    window.resetDefault();
   };
 
-  uploadInput.addEventListener('change', function () {
+  window.uploadInput.addEventListener('change', function () {
     openUploadPopup();
   });
 
   closeUploadButton.addEventListener('click', function () {
-    closeUploadPopup();
+    window.closeUploadPopup();
   });
 })();

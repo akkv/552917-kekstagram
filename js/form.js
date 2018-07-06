@@ -79,4 +79,37 @@
       uploadImage.style.transform = 'scale(' + (resizePercent / 100) + ')';
     }
   });
+
+  var deleteErrorMessage = function () {
+    if (document.querySelector('.error-message') !== null) {
+      var error = document.querySelector('.error-message');
+      error.parentNode.removeChild(error);
+    }
+  };
+  window.resetDefault = function () {
+    window.uploadInput.value = '';
+    window.hashtagsInput.value = '';
+    window.commentInput.value = '';
+    uploadImage.style.filter = '';
+    window.pinHandler.style.left = DEFAULT_EFFECT_VALUE + 'px';
+    window.effectValueDiv.style.width = DEFAULT_EFFECT_VALUE + 'px';
+    resizeValue.value = '100%';
+    resizePercent = resizeValue.value;
+    resizePercent = resizePercent.replace('%', '');
+    uploadImage.style.transform = 'scale(' + (resizePercent / 100) + ')';
+    deleteErrorMessage();
+  };
 })();
+
+(function () {
+  var submitButton = document.querySelector('.img-upload__submit');
+  var form = document.querySelector('.img-upload__form');
+  var onSave = function () {
+    window.closeUploadPopup();
+  };
+  submitButton.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(form), onSave, window.onError);
+  });
+})();
+

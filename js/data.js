@@ -54,7 +54,7 @@
     return comment;
   };
 
-  var generatePhotosData = function () {
+  window.generatePhotosData = function () {
     var urls = generateUrls();
     var photos = [];
 
@@ -70,5 +70,4 @@
     }
     return photos;
   };
-  window.photosData = generatePhotosData();
 })();
