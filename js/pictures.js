@@ -28,7 +28,4 @@
     document.querySelector('.img-filters').classList.remove('img-filters--inactive');
   };
   window.backend.load(onLoad, window.onError);
-
-
 })();
-
