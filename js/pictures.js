@@ -4,7 +4,7 @@
   window.picturesProps = {
     smallPhotosContainer: document.querySelector('.pictures'),
 
-    renderSmallPhotosElements: function (data) {
+    generateSmallPhotosElements: function (data) {
       var fragment = document.createDocumentFragment();
       for (var i = 0; i < data.length; i++) {
         var smallPhoto = templateOfSmallPhoto.cloneNode(true);
@@ -23,7 +23,7 @@
   };
   var onLoad = function (data) {
     window.photosData = data;
-    window.picturesProps.smallPhotosContainer.appendChild(window.picturesProps.renderSmallPhotosElements(window.photosData));
+    window.picturesProps.smallPhotosContainer.appendChild(window.picturesProps.generateSmallPhotosElements(window.photosData));
     window.uploadProps.addClickListeners(window.photosData);
     document.querySelector('.img-filters').classList.remove('img-filters--inactive');
   };

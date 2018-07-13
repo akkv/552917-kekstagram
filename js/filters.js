@@ -36,7 +36,7 @@
     array = array.slice(0, 10);
 
     clearPhotos();
-    window.picturesProps.smallPhotosContainer.appendChild(window.picturesProps.renderSmallPhotosElements(array));
+    window.picturesProps.smallPhotosContainer.appendChild(window.picturesProps.generateSmallPhotosElements(array));
     window.uploadProps.addClickListeners(array);
   });
 
@@ -46,7 +46,7 @@
     filterPopular.classList.toggle('img-filters__button--active');
 
     clearPhotos();
-    window.picturesProps.smallPhotosContainer.appendChild(window.picturesProps.renderSmallPhotosElements(window.photosData));
+    window.picturesProps.smallPhotosContainer.appendChild(window.picturesProps.generateSmallPhotosElements(window.photosData));
     window.uploadProps.addClickListeners(window.photosData);
   });
 
@@ -61,7 +61,7 @@
     array.sort(compareCommentsLength);
 
     clearPhotos();
-    window.picturesProps.smallPhotosContainer.appendChild(window.picturesProps.renderSmallPhotosElements(array));
+    window.picturesProps.smallPhotosContainer.appendChild(window.picturesProps.generateSmallPhotosElements(array));
     window.uploadProps.addClickListeners(array);
   });
 })();
