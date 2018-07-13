@@ -275,6 +275,7 @@ var changeEffect = function (element, effect) {
 
 // Валидация
 (function () {
+  var MAX_LENGTH = 20;
   var hashtagsInput = upload.querySelector('.text__hashtags');
   hashtagsInput.addEventListener('change', function () {
     var hashtags = hashtagsInput.value.split(' ');
@@ -285,7 +286,7 @@ var changeEffect = function (element, effect) {
         hashtagsInput.setCustomValidity('Хэштег должен начинаться с #');
       } else if (hashtags[i].length === 1) {
         hashtagsInput.setCustomValidity('Хэштег не может состоять только из #');
-      } else if (hashtags[i].length > 20) {
+      } else if (hashtags[i].length > MAX_LENGTH) {
         hashtagsInput.setCustomValidity('Хэштег не может быть длинее 20 символов');
       } else if (hashtags.indexOf(hashtags[i]) !== i) {
         hashtagsInput.setCustomValidity('Не может быть двух одинаковых хештегов');
