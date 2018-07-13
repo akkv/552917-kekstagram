@@ -18,10 +18,6 @@
   ];
   window.NUMBER_OF_PHOTOS = 25;
 
-  window.getRandomInt = function (min, max) {
-    return Math.round(Math.random() * (max - min)) + min;
-  };
-
   var shuffleArray = function (array) {
     for (var i = array.length - 1; i > 1; i--) {
       var r = Math.round(Math.random() * i);
@@ -42,12 +38,12 @@
 
   var generateComment = function () {
     var comment = [];
-    comment.push(exampleCommentsParts[window.getRandomInt(0, exampleCommentsParts.length - 1)]);
+    comment.push(exampleCommentsParts[window.utils.getRandomInt(0, exampleCommentsParts.length - 1)]);
     var randomForOneOrTwoComments = Math.round(Math.random());
     if (!randomForOneOrTwoComments) {
-      var tmp = exampleCommentsParts[window.getRandomInt(0, exampleCommentsParts.length - 1)];
+      var tmp = exampleCommentsParts[window.utils.getRandomInt(0, exampleCommentsParts.length - 1)];
       while (comment[0] === tmp) {
-        tmp = exampleCommentsParts[window.getRandomInt(0, exampleCommentsParts.length - 1)];
+        tmp = exampleCommentsParts[window.utils.getRandomInt(0, exampleCommentsParts.length - 1)];
       }
       comment.push(' ' + tmp);
     }
@@ -62,8 +58,8 @@
       var tmp = generateComment();
       photos.push({
         url: urls[i],
-        likes: window.getRandomInt(15, 200),
-        description: exampleDescriptionParts[window.getRandomInt(0, exampleDescriptionParts.length - 1)],
+        likes: window.utils.getRandomInt(15, 200),
+        description: exampleDescriptionParts[window.utils.getRandomInt(0, exampleDescriptionParts.length - 1)],
         comments: tmp,
         commentsCount: tmp.length
       });

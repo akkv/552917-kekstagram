@@ -2,13 +2,14 @@
 (function () {
   var URL_LOAD = 'https://js.dump.academy/kekstagram/data';
   var URL_SAVE = 'https://js.dump.academy/kekstagram';
+  var SUCCESS_STATUS = 200;
   window.backend = {
     load: function (onLoad, onError) {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
 
       xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
+        if (xhr.status === SUCCESS_STATUS) {
           onLoad(xhr.response);
         } else {
           onError('Ошибка загрузки данных. Ответ сервера:' + xhr.status + ' ' + xhr.statusText);
@@ -23,7 +24,7 @@
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
       xhr.addEventListener('load', function () {
-        if (xhr.status === 200) {
+        if (xhr.status === SUCCESS_STATUS) {
           onLoad(xhr.response);
         } else {
           onError('Ошибка отправки данных. Ответ сервера :' + xhr.status + ' ' + xhr.statusText);

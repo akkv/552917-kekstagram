@@ -23,7 +23,7 @@
     var onLoad = function (data) {
       window.photosData = data;
       window.smallPhotosContainer.appendChild(renderSmallPhotosElements(window.photosData));
-      window.addClickListeners();
+      window.uploadProps.addClickListeners();
     };
     window.backend.load(onLoad, window.onError);
   })();
