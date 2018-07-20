@@ -21,7 +21,7 @@
       document.querySelector('.img-upload__message--error').classList.remove('hidden');
     },
     deleteErrorMessage: function () {
-      if (document.querySelector('.img-upload__message--error')){
+      if (document.querySelector('.img-upload__message--error')) {
         document.querySelector('.img-upload__message--error').classList.add('hidden');
       }
     }
