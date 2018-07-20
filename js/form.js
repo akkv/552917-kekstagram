@@ -1,5 +1,6 @@
 'use strict';
 (function () {
+  var MAX_HASHTAG_LENGTH = 20;
 // Эффекты
   var effects = document.querySelectorAll('.effects__radio');
   var uploadImage = document.querySelector('.img-upload__preview');
@@ -93,7 +94,6 @@
   // Валидация
   var descriptionInput = document.querySelector('.text__description');
   var hashtagsInput = document.querySelector('.text__hashtags');
-  var MAX_LENGTH = 20;
 
   var onDescriptionInvalid = function () {
     if (!descriptionInput.validity.valid) {
@@ -122,7 +122,7 @@
           customValidityMessage = 'Хэштег должен начинаться с #';
         } else if (hashtags[i].length === 1) {
           customValidityMessage = 'Хэштег не может состоять только из #';
-        } else if (hashtags[i].length > MAX_LENGTH) {
+        } else if (hashtags[i].length > MAX_HASHTAG_LENGTH) {
           customValidityMessage = 'Хэштег не может быть длинее 20 символов';
         } else if (hashtags.indexOf(hashtags[i]) !== i) {
           customValidityMessage = 'Не может быть двух одинаковых хештегов';

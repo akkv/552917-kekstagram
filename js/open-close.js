@@ -9,6 +9,9 @@
       document.querySelector('body').classList.add('modal-open');
       document.addEventListener('keydown', onBigPhotoEscPress);
     });
+    closeBigPhotoButton.addEventListener('click', function () {
+      closeBigPhoto();
+    });
   };
 
   var closeBigPhoto = function () {
@@ -18,11 +21,12 @@
       window.preview.commentsContainer.removeChild(window.preview.commentsContainer.firstChild);
     }
     document.removeEventListener('keydown', onBigPhotoEscPress);
+    closeBigPhotoButton.removeEventListener('click', function () {
+      closeBigPhoto();
+    });
   };
 
-  closeBigPhotoButton.addEventListener('click', function () {
-    closeBigPhoto();
-  });
+
   var onBigPhotoEscPress = function (evt) {
     if (evt.keyCode === window.utils.ESC_KEYCODE) {
       closeBigPhoto();
