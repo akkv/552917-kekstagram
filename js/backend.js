@@ -12,7 +12,7 @@
         if (xhr.status === SUCCESS_STATUS) {
           onLoad(xhr.response);
         } else {
-          onError('Ошибка загрузки данных. Ответ сервера:' + xhr.status + ' ' + xhr.statusText);
+          onError();
         }
       }
       );
@@ -27,25 +27,12 @@
         if (xhr.status === SUCCESS_STATUS) {
           onLoad(xhr.response);
         } else {
-          onError('Ошибка отправки данных. Ответ сервера :' + xhr.status + ' ' + xhr.statusText);
+          onError();
         }
       }
       );
       xhr.open('POST', URL_SAVE);
       xhr.send(data);
-    },
-
-    createErrorMessage: function (message) {
-      var element = document.createElement('div');
-      element.classList.add('error-message');
-      element.style.background = 'red';
-      element.style.position = 'fixed';
-      element.style.zIndex = 5;
-      element.style.top = '10px';
-      element.style.width = '100%';
-      element.style.textAlign = 'center';
-      element.textContent = message;
-      return element;
     }
   };
 })();

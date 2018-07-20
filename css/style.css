@@ -454,6 +454,7 @@ main {
 }
 
 .img-upload__message--error {
+  z-index: 1;
   padding-top: 275px;
 
   font-family: "Open Sans", "Arial", sans-serif;

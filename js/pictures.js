@@ -16,16 +16,12 @@
       return fragment;
     }
   };
-  // window.photosData = window.generatePhotosData();
 
-  window.onError = function (message) {
-    document.body.appendChild(window.backend.createErrorMessage(message));
-  };
   var onLoad = function (data) {
     window.photosData = data;
     window.picturesProps.smallPhotosContainer.appendChild(window.picturesProps.generateSmallPhotosElements(window.photosData));
     window.uploadProps.addClickListeners(window.photosData);
     document.querySelector('.img-filters').classList.remove('img-filters--inactive');
   };
-  window.backend.load(onLoad, window.onError);
+  window.backend.load(onLoad, window.utils.onError);
 })();
