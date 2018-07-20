@@ -1,7 +1,7 @@
 'use strict';
 (function () {
   var MAX_HASHTAG_LENGTH = 20;
-// Эффекты
+  // Эффекты
   var effects = document.querySelectorAll('.effects__radio');
   var uploadImage = document.querySelector('.img-upload__preview');
   var changeEffect = function (element, effect) {
