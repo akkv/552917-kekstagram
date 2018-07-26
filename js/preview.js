@@ -1,5 +1,10 @@
 'use strict';
 (function () {
+  var AVATAR_SRC_INDEX = {
+    MIN: 1,
+    MAX: 6
+  };
+  var commentTemplate = document.querySelector('#comment').content.querySelector('li');
   window.preview = {
     bigPhoto: document.querySelector('.big-picture'),
     commentsContainer: document.querySelector('.social__comments'),
@@ -8,12 +13,15 @@
       bigPhotoProps.likes.textContent = data.likes;
       bigPhotoProps.descriptions.textContent = data.description;
       bigPhotoProps.commentsCount.textContent = '' + data.comments.length;
-      this.commentsContainer.appendChild(renderComments(data));
+      this.commentsContainer.appendChild(window.utils.createNewElements(data.comments, commentTemplate, function (comment, index, element) {
+        element.querySelector('.social__text').textContent = comment;
+        element.querySelector('.social__comment .social__picture').src = generateAvatarSrc();
+        return element;
+      }));
       this.bigPhoto.querySelector('.social__comment-count').classList.add('visually-hidden');
       this.bigPhoto.querySelector('.social__loadmore').classList.add('visually-hidden');
     }
   };
-  var commentTemplate = document.querySelector('#comment').content.querySelector('li');
 
   var bigPhotoProps = {
     photo: window.preview.bigPhoto.querySelector('.big-picture__img img'),
@@ -22,15 +30,8 @@
     descriptions: window.preview.bigPhoto.querySelector('.social__caption'),
   };
 
-  var renderComments = function (data) {
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < data.comments.length; i++) {
-      var element = commentTemplate.cloneNode(true);
-      element.querySelector('.social__text').textContent = data.comments[i];
-      element.querySelector('.social__comment .social__picture').src = 'img/avatar-' + window.utils.getRandomInt(1, 6) + '.svg';
-      fragment.appendChild(element);
-    }
-    return fragment;
+  var generateAvatarSrc = function () {
+    return 'img/avatar-' + window.utils.getRandomInt(AVATAR_SRC_INDEX.MIN, AVATAR_SRC_INDEX.MAX) + '.svg';
   };
 })();
 

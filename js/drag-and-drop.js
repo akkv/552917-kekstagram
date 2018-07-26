@@ -1,37 +1,37 @@
 'use strict';
 (function () {
-  window.formProps.pinHandler.addEventListener('mousedown', function (evt) {
+  window.form.pinHandler.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
 
-    var mouseMove = function (moveEvt) {
+    var onMouseMove = function (moveEvt) {
 
       moveEvt.preventDefault();
       var newLeft;
-      var minX = window.formProps.effectLine.getBoundingClientRect().left;
-      var maxX = window.formProps.effectLine.getBoundingClientRect().right;
+      var minX = window.form.effectLine.getBoundingClientRect().left;
+      var maxX = window.form.effectLine.getBoundingClientRect().right;
 
       if (moveEvt.clientX >= minX && moveEvt.clientX <= maxX) {
-        newLeft = moveEvt.clientX - window.formProps.effectLine.getBoundingClientRect().left;
+        newLeft = moveEvt.clientX - window.form.effectLine.getBoundingClientRect().left;
         if (newLeft < 0) {
           newLeft = 0;
         }
-        if (newLeft > window.formProps.effectLine.offsetWidth) {
-          newLeft = window.formProps.effectLine.offsetWidth;
+        if (newLeft > window.form.effectLine.offsetWidth) {
+          newLeft = window.form.effectLine.offsetWidth;
         }
 
-        window.formProps.pinHandler.style.left = newLeft + 'px';
-        window.formProps.effectValueDiv.style.width = newLeft + 'px';
+        window.form.pinHandler.style.left = newLeft + 'px';
+        window.form.effectValueDiv.style.width = newLeft + 'px';
       }
-      window.formProps.effectChangeOnMouseMove();
+      window.form.effectChangeOnMouseMove();
     };
 
-    var mouseUp = function (upEvt) {
+    var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
-      document.removeEventListener('mousemove', mouseMove);
-      document.removeEventListener('mouseup', mouseUp);
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
     };
 
-    document.addEventListener('mousemove', mouseMove);
-    document.addEventListener('mouseup', mouseUp);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
   });
 })();

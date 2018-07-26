@@ -1,27 +1,34 @@
 'use strict';
 (function () {
-  var templateOfSmallPhoto = document.querySelector('#picture').content.querySelector('a');
-  window.picturesProps = {
-    smallPhotosContainer: document.querySelector('.pictures'),
-
-    generateSmallPhotosElements: function (data) {
-      var fragment = document.createDocumentFragment();
-      for (var i = 0; i < data.length; i++) {
-        var smallPhoto = templateOfSmallPhoto.cloneNode(true);
-        smallPhoto.querySelector('.picture__img').src = data[i].url;
-        smallPhoto.querySelector('.picture__stat--likes').textContent = data[i].likes;
-        smallPhoto.querySelector('.picture__stat--comments').textContent = '' + data[i].comments.length;
-        fragment.appendChild(smallPhoto);
-      }
-      return fragment;
-    }
+  var templateOfSmallPhoto = document.querySelector('#picture').content;
+  var smallPhotosContainer = document.querySelector('.pictures');
+  window.generateSmallPhotosElements = function (data) {
+    clearPhotos();
+    smallPhotosContainer.appendChild(window.utils.createNewElements(data, templateOfSmallPhoto, function (picture, index, element) {
+      element.querySelector('.picture__img').src = picture.url;
+      element.querySelector('.picture__stat--likes').textContent = picture.likes;
+      element.querySelector('.picture__stat--comments').textContent = '' + picture.comments.length;
+      element.querySelector('.picture__link').addEventListener('click', function (evt) {
+        evt.preventDefault();
+        window.openClose.openBigPhoto(picture);
+      });
+      return element;
+    }));
   };
 
+
+  var clearPhotos = function () {
+    var photos = smallPhotosContainer.querySelectorAll('a');
+    photos.forEach(function (element) {
+      element.remove();
+    });
+  };
+
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
   var onLoad = function (data) {
     window.photosData = data;
-    window.picturesProps.smallPhotosContainer.appendChild(window.picturesProps.generateSmallPhotosElements(window.photosData));
-    window.uploadProps.addClickListeners(window.photosData);
+    window.generateSmallPhotosElements(window.photosData);
     document.querySelector('.img-filters').classList.remove('img-filters--inactive');
   };
-  window.backend.load(onLoad, window.utils.onError);
+  window.backend('load', onLoad, window.utils.onError);
 })();
