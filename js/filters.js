@@ -1,10 +1,10 @@
 'use strict';
 (function () {
+  var ACTIVE_CLASS = 'img-filters__button--active';
+  var FILTER_NEW_AMOUNT = 10;
   var filterElement = document.querySelector('.img-filters');
   var formElement = filterElement.querySelector('.img-filters__form');
   var filterControlElements = formElement.querySelectorAll('.img-filters__button');
-  var ACTIVE_CLASS = 'img-filters__button--active';
-  var FILTER_NEW_AMOUNT = 10;
 
   var activeClassRemove = function () {
     filterControlElements.forEach(function (element) {
